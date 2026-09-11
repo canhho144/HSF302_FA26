@@ -30,7 +30,7 @@ public class Employee {
     @Transient
     private int yearsOfService;
 
-    // Constructor không tham số - bắt buộc cho JPA
+
     public Employee() {
     }
 
@@ -44,7 +44,7 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
-    // Getter và Setter
+
     public Long getId() {
         return id;
     }
@@ -93,7 +93,7 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
-    // Tính số năm làm việc
+
     public int getYearsOfService() {
         if (hireDate == null) {
             return 0;
