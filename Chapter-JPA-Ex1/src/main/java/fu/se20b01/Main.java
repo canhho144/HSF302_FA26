@@ -19,14 +19,10 @@ public class Main {
                 LocalDate.of(2024, 1, 15)
         );
 
-        dao.save(employee);
-
-        System.out.println("Created employee:");
         System.out.println("ID: " + employee.getId());
         System.out.println("Name: " + employee.getFullName());
         System.out.println("Email: " + employee.getEmail());
         System.out.println("Salary: " + employee.getSalary());
-
 
         System.out.println("\n=== READ ===");
 
@@ -42,16 +38,11 @@ public class Main {
             System.out.println("Employee not found");
         }
 
-
         System.out.println("\n=== UPDATE ===");
-
         found.setSalary(new BigDecimal("2000"));
-
         dao.update(found);
-
         System.out.println("Employee salary updated to: "
                 + found.getSalary());
-
 
         System.out.println("\n=== READ AFTER UPDATE ===");
 
@@ -67,7 +58,6 @@ public class Main {
             System.out.println("Employee not found");
         }
 
-
         System.out.println("\n=== DELETE ===");
 
         Long deleteId = employee.getId();
@@ -77,7 +67,6 @@ public class Main {
         System.out.println("Employee with ID "
                 + deleteId + " has been deleted.");
 
-
         System.out.println("\n=== READ AFTER DELETE ===");
 
         Employee deleted = dao.findById(deleteId);
@@ -85,44 +74,10 @@ public class Main {
         if (deleted == null) {
             System.out.println("Employee not found. Delete successful.");
         } else {
-            System.out.println("Employee still exists.");
-        }
-
-
-        System.out.println("\n=== TODO 0.9 UNIQUE EMAIL ===");
-
-        Employee employee1 = new Employee(
-                "Nguyen Van B",
-                "duplicate@gmail.com",
-                new BigDecimal("1800"),
-                Gender.MALE,
-                LocalDate.of(2024, 2, 1)
-        );
-
-        Employee employee2 = new Employee(
-                "Tran Thi C",
-                "duplicate@gmail.com",
-                new BigDecimal("1900"),
-                Gender.FEMALE,
-                LocalDate.of(2024, 3, 1)
-        );
-
-        try {
-            dao.save(employee1);
-
-            System.out.println("First employee saved successfully.");
-            System.out.println("Email: " + employee1.getEmail());
-
-            dao.save(employee2);
-
-            System.out.println("Second employee saved successfully.");
-        } catch (Exception ex) {
-            System.out.println("ERROR: Email already exists.");
-            System.out.println("The second employee could not be saved.");
-            System.out.println("Exception: " + ex.getClass().getSimpleName());
+            System.out.println("Employee still exists:");
+            System.out.println(deleted);
         }
 
         System.out.println("\n=== CRUD DEMO COMPLETED ===");
     }
 }
-
