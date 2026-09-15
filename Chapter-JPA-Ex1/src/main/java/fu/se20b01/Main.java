@@ -19,6 +19,11 @@ public class Main {
                 LocalDate.of(2024, 1, 15)
         );
 
+        // Entity đang ở trạng thái New/Transient trước khi save()
+        dao.save(employee);
+
+        // Sau save(), EntityManager đã đóng nên entity trở thành Detached
+        System.out.println("Created employee:");
         System.out.println("ID: " + employee.getId());
         System.out.println("Name: " + employee.getFullName());
         System.out.println("Email: " + employee.getEmail());
@@ -28,6 +33,7 @@ public class Main {
 
         Employee found = dao.findById(employee.getId());
 
+        // Entity được em.find() lấy ra và đang ở trạng thái Managed trong EntityManager
         if (found != null) {
             System.out.println("Employee found:");
             System.out.println("ID: " + found.getId());
@@ -39,8 +45,13 @@ public class Main {
         }
 
         System.out.println("\n=== UPDATE ===");
+
+        // Entity found từ findById() đã trở thành Detached sau khi EntityManager đóng
         found.setSalary(new BigDecimal("2000"));
+
         dao.update(found);
+
+        // Object cũ vẫn Detached; object được merge() trả về là Managed trong transaction
         System.out.println("Employee salary updated to: "
                 + found.getSalary());
 
@@ -48,6 +59,7 @@ public class Main {
 
         Employee updated = dao.findById(employee.getId());
 
+        // Entity được tìm thấy bởi find() là Managed trong EntityManager của findById()
         if (updated != null) {
             System.out.println("Employee after update:");
             System.out.println("ID: " + updated.getId());
@@ -64,6 +76,7 @@ public class Main {
 
         dao.delete(deleteId);
 
+        // Entity được em.remove() chuyển sang Removed trong transaction và bị xóa sau commit()
         System.out.println("Employee with ID "
                 + deleteId + " has been deleted.");
 
