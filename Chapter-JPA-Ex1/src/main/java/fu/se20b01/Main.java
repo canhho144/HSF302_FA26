@@ -85,11 +85,44 @@ public class Main {
         if (deleted == null) {
             System.out.println("Employee not found. Delete successful.");
         } else {
-            System.out.println("Employee still exists:");
-            System.out.println(deleted);
+            System.out.println("Employee still exists.");
         }
 
+
+        System.out.println("\n=== TODO 0.9 UNIQUE EMAIL ===");
+
+        Employee employee1 = new Employee(
+                "Nguyen Van B",
+                "duplicate@gmail.com",
+                new BigDecimal("1800"),
+                Gender.MALE,
+                LocalDate.of(2024, 2, 1)
+        );
+
+        Employee employee2 = new Employee(
+                "Tran Thi C",
+                "duplicate@gmail.com",
+                new BigDecimal("1900"),
+                Gender.FEMALE,
+                LocalDate.of(2024, 3, 1)
+        );
+
+        try {
+            dao.save(employee1);
+
+            System.out.println("First employee saved successfully.");
+            System.out.println("Email: " + employee1.getEmail());
+
+            dao.save(employee2);
+
+            System.out.println("Second employee saved successfully.");
+        } catch (Exception ex) {
+            System.out.println("ERROR: Email already exists.");
+            System.out.println("The second employee could not be saved.");
+            System.out.println("Exception: " + ex.getClass().getSimpleName());
+        }
 
         System.out.println("\n=== CRUD DEMO COMPLETED ===");
     }
 }
+
