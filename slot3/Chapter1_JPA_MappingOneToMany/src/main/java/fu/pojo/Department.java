@@ -15,6 +15,8 @@ public class Department {
     @Column(unique = true)
     private String name;
 
+    private String location;
+
     @OneToMany(mappedBy = "department",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -23,8 +25,9 @@ public class Department {
     public Department() {
     }
 
-    public Department(String name) {
+    public Department(String name, String location) {
         this.name = name;
+        this.location = location;
     }
 
     public Long getId() {
@@ -43,11 +46,29 @@ public class Department {
         this.name = name;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public List<Employee> getEmployees() {
         return employees;
     }
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    public void addEmployee(Employee e) {
+        this.employees.add(e);
+        e.setDepartment(this);
+    }
+
+    public void removeEmployee(Employee e) {
+        this.employees.remove(e);
+        e.setDepartment(null);
     }
 }
