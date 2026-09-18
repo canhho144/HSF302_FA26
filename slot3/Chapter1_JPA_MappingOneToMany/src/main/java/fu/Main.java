@@ -1,5 +1,6 @@
 package fu;
 
+import fu.dao.DepartmentDAO;
 import fu.pojo.Department;
 import fu.pojo.Employee;
 import fu.pojo.Gender;
@@ -24,7 +25,15 @@ public class Main {
 
         dept.addEmployee(emp);
 
-        System.out.println(dept.getEmployees().contains(emp));
-        System.out.println(emp.getDepartment() == dept);
+        DepartmentDAO departmentDAO = new DepartmentDAO();
+
+        departmentDAO.save(dept);
+
+        Department result =
+                departmentDAO.findByIdWithEmployees(dept.getId());
+
+        System.out.println("Department: " + result.getName());
+        System.out.println("Number of employees: "
+                + result.getEmployees().size());
     }
 }
