@@ -1,78 +1,128 @@
 package fu;
 
-import fu.dao.DepartmentDAO;
 import fu.pojo.Department;
 import fu.pojo.Employee;
 import fu.pojo.Gender;
+import fu.pojo.Project;
 import fu.util.JPAUtil;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        DepartmentDAO departmentDAO = new DepartmentDAO();
+        EntityManager em = JPAUtil.getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
 
-        Department it = new Department("Marketing", "Ha Noi");
+        try {
+            transaction.begin();
 
-        Employee e1 = new Employee(
-                "Nguyen Van A",
-                "aa.nguyen@company.com",
-                Gender.MALE,
-                true,
-                new BigDecimal("15000000"),
-                LocalDate.of(2022, 1, 10)
-        );
+            Department department = new Department();
+            department.setName("IT");
+            em.persist(department);
 
-        Employee e2 = new Employee(
-                "Tran Thi B",
-                "bb.tran@company.com",
-                Gender.FEMALE,
-                true,
-                new BigDecimal("18000000"),
-                LocalDate.of(2021, 6, 1)
-        );
-
-        Employee e3 = new Employee(
-                "Le Van C",
-                "cc.le@company.com",
-                Gender.OTHER,
-                true,
-                new BigDecimal("12000000"),
-                LocalDate.of(2023, 3, 15)
-        );
-
-        it.addEmployee(e1);
-        it.addEmployee(e2);
-        it.addEmployee(e3);
-
-        departmentDAO.save(it);
-
-        System.out.println("Da luu Department, id = " + it.getId());
-
-        Department found = departmentDAO.findByIdWithEmployees(it.getId());
-
-        System.out.println("Phong ban: " + found.getName());
-
-        for (Employee e : found.getEmployees()) {
-            System.out.println(" - " + e.getFullName());
-        }
-
-
-        System.out.println("\n===== TODO 2.8 - N+1 Query Problem =====");
-
-        List<Department> departments = departmentDAO.findAll();
-
-        for (Department department : departments) {
-            System.out.println(
-                    "Department: " + department.getName()
-                            + " - Employees: " + department.getEmployees().size()
+            Employee employee1 = new Employee(
+                    "Nguyen Van A",
+                    "a@gmail.com",
+                    Gender.MALE,
+                    true,
+                    new BigDecimal("1500.00"),
+                    LocalDate.of(2022, 1, 10)
             );
-        }
 
-        JPAUtil.close();
+            Employee employee2 = new Employee(
+                    "Tran Thi B",
+                    "b@gmail.com",
+                    Gender.FEMALE,
+                    true,
+                    new BigDecimal("1800.00"),
+                    LocalDate.of(2023, 3, 15)
+            );
+
+            Employee employee3 = new Employee(
+                    "Le Van C",
+                    "c@gmail.com",
+                    Gender.MALE,
+                    true,
+                    new BigDecimal("2000.00"),
+                    LocalDate.of(2024, 5, 20)
+            );
+
+            employee1.setDepartment(department);
+            employee2.setDepartment(department);
+            employee3.setDepartment(department);
+
+            Project projectA = new Project(
+                    "P001",
+                    "Project A",
+                    new BigDecimal("50000.00"),
+                    LocalDate.of(2026, 1, 1),
+                    null
+            );
+
+            Project projectB = new Project(
+                    "P002",
+                    "Project B",
+                    new BigDecimal("80000.00"),
+                    LocalDate.of(2026, 2, 1),
+                    null
+            );
+
+            em.persist(projectA);
+            em.persist(projectB);
+
+            em.persist(employee1);
+            em.persist(employee2);
+            em.persist(employee3);
+
+            employee1.assignToProject(projectA);
+            employee1.assignToProject(projectB);
+
+            employee2.assignToProject(projectB);
+
+            employee3.assignToProject(projectA);
+
+            transaction.commit();
+
+            System.out.println("=== PROJECTS OF EACH EMPLOYEE ===");
+
+            System.out.println("Employee: " + employee1.getFullName());
+            for (Project project : employee1.getProjects()) {
+                System.out.println(
+                        "  - " + project.getProjectCode()
+                                + " - " + project.getProjectName()
+                );
+            }
+
+            System.out.println("Employee: " + employee2.getFullName());
+            for (Project project : employee2.getProjects()) {
+                System.out.println(
+                        "  - " + project.getProjectCode()
+                                + " - " + project.getProjectName()
+                );
+            }
+
+            System.out.println("Employee: " + employee3.getFullName());
+            for (Project project : employee3.getProjects()) {
+                System.out.println(
+                        "  - " + project.getProjectCode()
+                                + " - " + project.getProjectName()
+                );
+            }
+
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+            JPAUtil.close();
+        }
     }
 }

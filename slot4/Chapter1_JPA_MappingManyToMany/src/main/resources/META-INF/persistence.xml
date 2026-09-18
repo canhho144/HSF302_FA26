@@ -24,7 +24,7 @@
                       value="sa"/>
 
             <property name="jakarta.persistence.jdbc.password"
-                      value="sa"/>
+                      value="123456"/>
 
             <property name="hibernate.dialect"
                       value="org.hibernate.dialect.SQLServerDialect"/>
