@@ -53,18 +53,14 @@ public class DepartmentDAO {
             em.close();
         }
     }
-    public Department findByIdWithEmployees(Long id) {
+    public List<Department> findAllWithEmployees() {
         EntityManager em = JPAUtil.getEntityManager();
 
         try {
             return em.createQuery(
-                            "SELECT d FROM Department d JOIN FETCH d.employees WHERE d.id = :id",
-                            Department.class
-                    )
-                    .setParameter("id", id)
-                    .getSingleResult();
-        } catch (Exception e) {
-            throw e;
+                    "SELECT DISTINCT d FROM Department d JOIN FETCH d.employees",
+                    Department.class
+            ).getResultList();
         } finally {
             em.close();
         }
