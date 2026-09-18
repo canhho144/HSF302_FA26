@@ -13,6 +13,7 @@ import java.util.Set;
                 @UniqueConstraint(columnNames = "projectCode")
         }
 )
+
 public class Project {
 
     @Id
@@ -33,6 +34,14 @@ public class Project {
 
     @ManyToMany(mappedBy = "projects")
     private Set<Employee> employees = new HashSet<>();
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
+    }
 
     public Project() {
     }
@@ -95,12 +104,5 @@ public class Project {
         this.endDate = endDate;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
 }
 
