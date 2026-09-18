@@ -15,7 +15,10 @@ public class Department {
     @Column(unique = true)
     private String name;
 
-
+    @OneToMany(mappedBy = "department",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Employee> employees = new ArrayList<>();
 
     public Department() {
     }
