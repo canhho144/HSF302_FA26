@@ -8,6 +8,7 @@ import fu.util.JPAUtil;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
 
@@ -57,7 +58,19 @@ public class Main {
         System.out.println("Phong ban: " + found.getName());
 
         for (Employee e : found.getEmployees()) {
-            System.out.println(" - " + e);
+            System.out.println(" - " + e.getFullName());
+        }
+
+
+        System.out.println("\n===== TODO 2.8 - N+1 Query Problem =====");
+
+        List<Department> departments = departmentDAO.findAll();
+
+        for (Department department : departments) {
+            System.out.println(
+                    "Department: " + department.getName()
+                            + " - Employees: " + department.getEmployees().size()
+            );
         }
 
         JPAUtil.close();

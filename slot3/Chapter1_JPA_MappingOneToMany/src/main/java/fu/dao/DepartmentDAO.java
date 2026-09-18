@@ -70,6 +70,7 @@ public class DepartmentDAO {
         }
     }
 
+
     public Department update(Department department) {
         EntityManager em = JPAUtil.getEntityManager();
         EntityTransaction transaction = em.getTransaction();
@@ -112,5 +113,6 @@ public class DepartmentDAO {
             em.close();
         }
     }
+
 
 }
