@@ -1,0 +1,78 @@
+package fu;
+
+import fu.dao.DepartmentDAO;
+import fu.pojo.Department;
+import fu.pojo.Employee;
+import fu.pojo.Gender;
+import fu.util.JPAUtil;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        DepartmentDAO departmentDAO = new DepartmentDAO();
+
+        Department it = new Department("Marketing", "Ha Noi");
+
+        Employee e1 = new Employee(
+                "Nguyen Van A",
+                "aa.nguyen@company.com",
+                Gender.MALE,
+                true,
+                new BigDecimal("15000000"),
+                LocalDate.of(2022, 1, 10)
+        );
+
+        Employee e2 = new Employee(
+                "Tran Thi B",
+                "bb.tran@company.com",
+                Gender.FEMALE,
+                true,
+                new BigDecimal("18000000"),
+                LocalDate.of(2021, 6, 1)
+        );
+
+        Employee e3 = new Employee(
+                "Le Van C",
+                "cc.le@company.com",
+                Gender.OTHER,
+                true,
+                new BigDecimal("12000000"),
+                LocalDate.of(2023, 3, 15)
+        );
+
+        it.addEmployee(e1);
+        it.addEmployee(e2);
+        it.addEmployee(e3);
+
+        departmentDAO.save(it);
+
+        System.out.println("Da luu Department, id = " + it.getId());
+
+        Department found = departmentDAO.findByIdWithEmployees(it.getId());
+
+        System.out.println("Phong ban: " + found.getName());
+
+        for (Employee e : found.getEmployees()) {
+            System.out.println(" - " + e.getFullName());
+        }
+
+
+        System.out.println("\n===== TODO 2.8 - N+1 Query Problem =====");
+
+        List<Department> departments = departmentDAO.findAll();
+
+        for (Department department : departments) {
+            System.out.println(
+                    "Department: " + department.getName()
+                            + " - Employees: " + department.getEmployees().size()
+            );
+        }
+
+        JPAUtil.close();
+    }
+}
