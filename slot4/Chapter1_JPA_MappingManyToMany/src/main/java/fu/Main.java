@@ -89,6 +89,21 @@ public class Main {
 
             transaction.commit();
 
+            System.out.println("=== TODO 5.9: UNASSIGN EMPLOYEE FROM PROJECT ===");
+
+            System.out.println("Before unassign:");
+            System.out.println("Employee 1 projects: " + employee1.getProjects().size());
+            System.out.println("Project B employees: " + projectB.getEmployees().size());
+
+            employee1.unassignFromProject(projectB);
+
+            System.out.println("After unassign:");
+            System.out.println("Employee 1 projects: " + employee1.getProjects().size());
+            System.out.println("Project B employees: " + projectB.getEmployees().size());
+
+            System.out.println("Employee 1 still exists: " + (employee1.getId() != null));
+            System.out.println("Project B still exists: " + (projectB.getId() != null));
+
             System.out.println("=== TODO 5.8: ACTIVE EMPLOYEES PER PROJECT ===");
 
             String jpql = """
