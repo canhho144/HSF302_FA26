@@ -89,7 +89,6 @@ public class Main {
 
             transaction.commit();
 
-            System.out.println("=== TODO 5.9: UNASSIGN EMPLOYEE FROM PROJECT ===");
 
             System.out.println("Before unassign:");
             System.out.println("Employee 1 projects: " + employee1.getProjects().size());
@@ -104,15 +103,28 @@ public class Main {
             System.out.println("Employee 1 still exists: " + (employee1.getId() != null));
             System.out.println("Project B still exists: " + (projectB.getId() != null));
 
-            System.out.println("=== TODO 5.8: ACTIVE EMPLOYEES PER PROJECT ===");
-
             String jpql = """
                     SELECT p.projectName, COUNT(e), SUM(e.salary)
                     FROM Project p JOIN p.employees e
                     WHERE e.active = true
                     GROUP BY p.projectName
                     """;
+            String jpql510 = """
+        SELECT e
+        FROM Employee e
+        WHERE e.active = true
+        AND SIZE(e.projects) > 1
+        """;
 
+            var employees = em.createQuery(jpql510, Employee.class)
+                    .getResultList();
+
+            for (Employee employee : employees) {
+                System.out.println(
+                        "Employee: " + employee.getFullName()
+                                + " | Projects: " + employee.getProjects().size()
+                );
+            }
             var results = em.createQuery(jpql, Object[].class)
                     .getResultList();
 
