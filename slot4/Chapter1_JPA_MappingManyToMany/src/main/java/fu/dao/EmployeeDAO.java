@@ -133,4 +133,40 @@ public class EmployeeDAO {
             em.close();
         }
     }
+
+    // When an employee leaves the company, the employee should not be
+    // automatically removed from all projects.
+    // The employee record should be kept for history and reporting purposes.
+    // We only set active = false.
+    // Project assignments can be removed separately when necessary.
+    // Do not use CascadeType.REMOVE because deactivating an employee
+    // must not delete the Employee or Project records.
+    public void deactivateEmployee(Long employeeId) {
+        EntityManager em = JPAUtil.getEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            transaction.begin();
+
+            Employee employee = em.find(Employee.class, employeeId);
+
+            if (employee == null) {
+                throw new IllegalArgumentException(
+                        "Employee not found: " + employeeId
+                );
+            }
+
+            employee.setActive(false);
+
+            transaction.commit();
+
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
 }
