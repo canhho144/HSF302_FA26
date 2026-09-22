@@ -89,6 +89,26 @@ public class Main {
 
             transaction.commit();
 
+            System.out.println("=== TODO 5.8: ACTIVE EMPLOYEES PER PROJECT ===");
+
+            String jpql = """
+                    SELECT p.projectName, COUNT(e), SUM(e.salary)
+                    FROM Project p JOIN p.employees e
+                    WHERE e.active = true
+                    GROUP BY p.projectName
+                    """;
+
+            var results = em.createQuery(jpql, Object[].class)
+                    .getResultList();
+
+            for (Object[] row : results) {
+                System.out.println(
+                        "Project: " + row[0]
+                                + " | Active employees: " + row[1]
+                                + " | Total salary: " + row[2]
+                );
+            }
+
             System.out.println("=== PROJECTS OF EACH EMPLOYEE ===");
 
             System.out.println("Employee: " + employee1.getFullName());
