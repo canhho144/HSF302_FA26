@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -119,5 +120,18 @@ public interface StudentRepository
     Page<Student> findActiveByDepartment(
             @Param("code") String code,
             Pageable pageable
+    );
+    @Modifying(
+            clearAutomatically = true,
+            flushAutomatically = true
+    )
+    @Query("""
+        UPDATE Student s
+        SET s.active = false
+        WHERE s.gpa < :threshold
+          AND s.active = true
+        """)
+    int deactivateLowGpa(
+            @Param("threshold") double threshold
     );
 }

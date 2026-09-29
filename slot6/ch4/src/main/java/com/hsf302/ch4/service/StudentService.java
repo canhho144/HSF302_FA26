@@ -77,4 +77,5 @@ public interface StudentService {
             Boolean active
     );
     Student updateGpa(String studentCode, double newGpa);
+    int deactivateLowGpa(double threshold);
 }
