@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
 
 @Component
 @Order(2)
@@ -103,13 +104,11 @@ public class ExerciseRunner implements CommandLineRunner {
 
         title("TODO 7: Sort & Pageable");
 
-        // (a) GPA giảm dần
         printList(
                 "All students order by GPA desc",
                 studentService.findAllOrderByGpaDesc()
         );
 
-        // (b) Trang THỨ 2 -> index 1
         Page<Student> page = studentService.findPage(
                 1,
                 3,
@@ -130,5 +129,33 @@ public class ExerciseRunner implements CommandLineRunner {
         );
     }
 
-    // ===== TODO 8 -> TODO 24 sẽ bổ sung sau =====
+    // ===== TODO 8 =====
+
+    private void todo8() {
+
+        title("TODO 8: findBy / existsBy / countBy");
+
+        for (String code : List.of("AI002", "XX999")) {
+
+            System.out.println(
+                    "findByStudentCode(" + code + ") -> "
+                            + studentService.findByStudentCode(code)
+                            .map(Object::toString)
+                            .orElse("Not found")
+            );
+        }
+
+        System.out.println(
+                "isEmailExisted(binh.tt@fpt.edu.vn) -> "
+                        + studentService.isEmailExisted(
+                        "binh.tt@fpt.edu.vn"
+                )
+        );
+
+        System.out.println(
+                "countActive -> " + studentService.countActive()
+        );
+    }
+
+    // ===== TODO 9 -> TODO 24 sẽ bổ sung sau =====
 }
