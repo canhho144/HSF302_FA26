@@ -1,5 +1,6 @@
 package com.hsf302.ch4.service;
 
+import com.hsf302.ch4.pojo.Gender;
 import com.hsf302.ch4.pojo.Student;
 import com.hsf302.ch4.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +32,6 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findById(id);
     }
 
-
     @Override
     public List<Student> findAllOrderByGpaDesc() {
         return studentRepository.findAll(
@@ -40,7 +41,6 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Page<Student> findPage(int pageIndex, int size, String sortField) {
-
         if (pageIndex < 0 || size <= 0) {
             throw new IllegalArgumentException(
                     "pageIndex phải >= 0 và size phải > 0"
@@ -55,7 +55,6 @@ public class StudentServiceImpl implements StudentService {
 
         return studentRepository.findAll(pageable);
     }
-
 
     @Override
     public Optional<Student> findByStudentCode(String studentCode) {
@@ -72,10 +71,8 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.countByActiveTrue();
     }
 
-
     @Override
     public List<Student> searchByName(String keyword) {
-
         if (keyword == null || keyword.isBlank()) {
             return List.of();
         }
@@ -87,7 +84,6 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> findByEmailDomain(String domain) {
-
         String suffix = domain.startsWith("@")
                 ? domain
                 : "@" + domain;
@@ -98,5 +94,29 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> findWithoutEmail() {
         return studentRepository.findByEmailIsNull();
+    }
+
+    @Override
+    public List<Student> findByGpaRange(double min, double max) {
+        if (min > max) {
+            throw new IllegalArgumentException(
+                    "min GPA phải <= max GPA"
+            );
+        }
+
+        return studentRepository.findByGpaBetweenOrderByGpaDesc(
+                min,
+                max
+        );
+    }
+
+    @Override
+    public List<Student> findActiveByGender(Gender gender) {
+        return studentRepository.findByGenderAndActiveTrue(gender);
+    }
+
+    @Override
+    public List<Student> findBornAfter(LocalDate date) {
+        return studentRepository.findByDobAfter(date);
     }
 }
