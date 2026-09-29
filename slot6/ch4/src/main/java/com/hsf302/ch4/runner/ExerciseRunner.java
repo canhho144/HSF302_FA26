@@ -419,4 +419,20 @@ public class ExerciseRunner implements CommandLineRunner {
                 departmentService.findAll()
         );
     }
+    private void todo23() {
+        title("TODO 23: Derived delete");
+
+        long deleted = studentService.deleteInactiveStudents();
+
+        System.out.println("Deleted: " + deleted);
+
+        System.out.println(
+                "Students left: " + studentService.count()
+        );
+
+        printList(
+                "Final statistics",
+                departmentService.getStatistics()
+        );
+    }
 }

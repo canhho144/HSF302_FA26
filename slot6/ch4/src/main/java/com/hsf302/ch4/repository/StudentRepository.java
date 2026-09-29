@@ -148,4 +148,5 @@ public interface StudentRepository
             @Param("from") Department from,
             @Param("to") Department to
     );
+    long deleteByActiveFalse();
 }
