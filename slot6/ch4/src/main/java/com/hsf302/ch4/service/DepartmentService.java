@@ -19,4 +19,8 @@ public interface DepartmentService {
     List<DepartmentStatDTO> getStatistics();
 
     Department getWithStudents(String code);
+
+    int transferStudentsAndDelete(String fromCode, String toCode);
+
+    List<Department> findAll();
 }
