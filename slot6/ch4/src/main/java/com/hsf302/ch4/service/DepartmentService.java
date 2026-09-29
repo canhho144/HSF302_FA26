@@ -17,4 +17,6 @@ public interface DepartmentService {
     List<Department> findDepartmentsWithoutStudents();
 
     List<DepartmentStatDTO> getStatistics();
+
+    Department getWithStudents(String code);
 }

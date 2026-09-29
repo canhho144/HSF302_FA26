@@ -43,4 +43,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<DepartmentStatDTO> getStatistics() {
         return departmentRepository.getDepartmentStats();
     }
+
+    @Override
+    public Department getWithStudents(String code) {
+        return departmentRepository.findByCodeWithStudents(code)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Department not found: " + code
+                        )
+                );
+    }
 }
