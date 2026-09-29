@@ -11,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.hsf302.ch4.dto.StudentSummary;
+import com.hsf302.ch4.specification.StudentSpecs;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -231,6 +233,24 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findActiveByDepartment(
                 deptCode,
                 pageable
+        );
+    }
+    @Override
+    public List<Student> search(
+            String kw,
+            String deptCode,
+            Double minGpa,
+            Boolean active
+    ) {
+        Specification<Student> spec =
+                Specification.where(StudentSpecs.nameContains(kw))
+                        .and(StudentSpecs.inDepartment(deptCode))
+                        .and(StudentSpecs.gpaAtLeast(minGpa))
+                        .and(StudentSpecs.isActive(active));
+
+        return studentRepository.findAll(
+                spec,
+                Sort.by("fullName")
         );
     }
 }
