@@ -157,5 +157,27 @@ public class ExerciseRunner implements CommandLineRunner {
         );
     }
 
-    // ===== TODO 9 -> TODO 24 sẽ bổ sung sau =====
+    // ===== TODO 9 =====
+
+    private void todo9() {
+
+        title("TODO 9: Containing / EndingWith / IsNull");
+
+        printList(
+                "fullName contains 'nguyen'",
+                studentService.searchByName("nguyen")
+        );
+
+        printList(
+                "email domain 'gmail.com'",
+                studentService.findByEmailDomain("gmail.com")
+        );
+
+        printList(
+                "email is null",
+                studentService.findWithoutEmail()
+        );
+    }
+
+    // ===== TODO 10 -> TODO 24 sẽ bổ sung sau =====
 }
