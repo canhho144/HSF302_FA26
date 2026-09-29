@@ -22,6 +22,7 @@ public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
 
+    // ===== TODO 6 =====
     @Override
     public long count() {
         return studentRepository.count();
@@ -32,6 +33,7 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findById(id);
     }
 
+    // ===== TODO 7 =====
     @Override
     public List<Student> findAllOrderByGpaDesc() {
         return studentRepository.findAll(
@@ -40,7 +42,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Page<Student> findPage(int pageIndex, int size, String sortField) {
+    public Page<Student> findPage(
+            int pageIndex,
+            int size,
+            String sortField
+    ) {
         if (pageIndex < 0 || size <= 0) {
             throw new IllegalArgumentException(
                     "pageIndex phải >= 0 và size phải > 0"
@@ -56,6 +62,7 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll(pageable);
     }
 
+    // ===== TODO 8 =====
     @Override
     public Optional<Student> findByStudentCode(String studentCode) {
         return studentRepository.findByStudentCode(studentCode);
@@ -71,6 +78,7 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.countByActiveTrue();
     }
 
+    // ===== TODO 9 =====
     @Override
     public List<Student> searchByName(String keyword) {
         if (keyword == null || keyword.isBlank()) {
@@ -96,6 +104,7 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByEmailIsNull();
     }
 
+    // ===== TODO 10 =====
     @Override
     public List<Student> findByGpaRange(double min, double max) {
         if (min > max) {
@@ -118,5 +127,22 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> findBornAfter(LocalDate date) {
         return studentRepository.findByDobAfter(date);
+    }
+
+    // ===== TODO 11 =====
+    @Override
+    public List<Student> findByDepartment(String deptCode) {
+        return studentRepository
+                .findByDepartment_CodeOrderByFullNameAsc(deptCode);
+    }
+
+    @Override
+    public long countByDepartment(String deptCode) {
+        return studentRepository.countByDepartment_Code(deptCode);
+    }
+
+    @Override
+    public List<Student> findTop3ByGpa() {
+        return studentRepository.findTop3ByOrderByGpaDesc();
     }
 }

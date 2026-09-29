@@ -1,10 +1,14 @@
 package com.hsf302.ch4.service;
 
+import com.hsf302.ch4.pojo.Department;
 import com.hsf302.ch4.repository.DepartmentRepository;
 import com.hsf302.ch4.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -12,8 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
+
     private final StudentRepository studentRepository;
 
+    // ===== TODO 6 =====
     @Override
     public long count() {
         return departmentRepository.count();
@@ -22,5 +28,16 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public boolean existsById(Long id) {
         return departmentRepository.existsById(id);
+    }
+
+    // ===== TODO 11 =====
+    @Override
+    public Optional<Department> findByCode(String code) {
+        return departmentRepository.findByCode(code);
+    }
+
+    @Override
+    public List<Department> findDepartmentsWithoutStudents() {
+        return departmentRepository.findByStudentsIsEmpty();
     }
 }

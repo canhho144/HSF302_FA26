@@ -16,7 +16,11 @@ public interface StudentService {
 
     List<Student> findAllOrderByGpaDesc();
 
-    Page<Student> findPage(int pageIndex, int size, String sortField);
+    Page<Student> findPage(
+            int pageIndex,
+            int size,
+            String sortField
+    );
 
     Optional<Student> findByStudentCode(String studentCode);
 
@@ -35,4 +39,10 @@ public interface StudentService {
     List<Student> findActiveByGender(Gender gender);
 
     List<Student> findBornAfter(LocalDate date);
+
+    List<Student> findByDepartment(String deptCode);
+
+    long countByDepartment(String deptCode);
+
+    List<Student> findTop3ByGpa();
 }
