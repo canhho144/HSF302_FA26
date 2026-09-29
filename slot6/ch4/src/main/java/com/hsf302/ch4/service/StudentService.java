@@ -52,4 +52,6 @@ public interface StudentService {
     );
 
     List<Student> searchByKeyword(String keyword);
+
+    List<Student> findAboveAverageGpa();
 }

@@ -2,17 +2,25 @@ package com.hsf302.ch4.repository;
 
 import com.hsf302.ch4.pojo.Gender;
 import com.hsf302.ch4.pojo.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface StudentRepository extends JpaRepository<Student, Long>,
+public interface StudentRepository
+        extends JpaRepository<Student, Long>,
         JpaSpecificationExecutor<Student> {
+
+    List<Student> findAll(Sort sort);
+
+    Page<Student> findAll(Pageable pageable);
 
     Optional<Student> findByStudentCode(String studentCode);
 
@@ -35,9 +43,7 @@ public interface StudentRepository extends JpaRepository<Student, Long>,
 
     List<Student> findByDobAfter(LocalDate date);
 
-    List<Student> findByDepartment_CodeOrderByFullNameAsc(
-            String code
-    );
+    List<Student> findByDepartment_CodeOrderByFullNameAsc(String code);
 
     long countByDepartment_Code(String code);
 
@@ -63,4 +69,14 @@ public interface StudentRepository extends JpaRepository<Student, Long>,
     List<Student> searchByKeyword(
             @Param("kw") String keyword
     );
+
+    @Query("""
+            SELECT s FROM Student s
+            WHERE s.gpa > (
+                SELECT AVG(s2.gpa)
+                FROM Student s2
+            )
+            ORDER BY s.gpa DESC
+            """)
+    List<Student> findAboveAverageGpa();
 }

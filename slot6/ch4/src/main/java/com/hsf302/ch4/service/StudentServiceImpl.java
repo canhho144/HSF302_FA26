@@ -101,7 +101,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findByGpaRange(double min, double max) {
+    public List<Student> findByGpaRange(
+            double min,
+            double max
+    ) {
         if (min > max) {
             throw new IllegalArgumentException(
                     "min GPA phải <= max GPA"
@@ -158,5 +161,10 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return studentRepository.searchByKeyword(keyword.trim());
+    }
+
+    @Override
+    public List<Student> findAboveAverageGpa() {
+        return studentRepository.findAboveAverageGpa();
     }
 }
