@@ -110,4 +110,14 @@ public interface StudentRepository
         ORDER BY s.fullName
         """)
     List<StudentSummary> findActiveSummaries();
+    @Query("""
+        SELECT s
+        FROM Student s
+        WHERE s.department.code = :code
+          AND s.active = true
+        """)
+    Page<Student> findActiveByDepartment(
+            @Param("code") String code,
+            Pageable pageable
+    );
 }
