@@ -14,21 +14,18 @@ import java.util.Optional;
 public interface StudentRepository extends JpaRepository<Student, Long>,
         JpaSpecificationExecutor<Student> {
 
-    // ===== TODO 8 =====
     Optional<Student> findByStudentCode(String studentCode);
 
     boolean existsByEmail(String email);
 
     long countByActiveTrue();
 
-    // ===== TODO 9 =====
     List<Student> findByFullNameContainingIgnoreCase(String keyword);
 
     List<Student> findByEmailEndingWith(String suffix);
 
     List<Student> findByEmailIsNull();
 
-    // ===== TODO 10 =====
     List<Student> findByGpaBetweenOrderByGpaDesc(
             double min,
             double max
@@ -38,7 +35,6 @@ public interface StudentRepository extends JpaRepository<Student, Long>,
 
     List<Student> findByDobAfter(LocalDate date);
 
-    // ===== TODO 11 =====
     List<Student> findByDepartment_CodeOrderByFullNameAsc(
             String code
     );
@@ -47,7 +43,6 @@ public interface StudentRepository extends JpaRepository<Student, Long>,
 
     List<Student> findTop3ByOrderByGpaDesc();
 
-    // ===== TODO 12 =====
     @Query("""
             SELECT s FROM Student s
             WHERE s.department.code = :code
@@ -57,5 +52,15 @@ public interface StudentRepository extends JpaRepository<Student, Long>,
     List<Student> findGoodStudentsInDepartment(
             @Param("code") String code,
             @Param("minGpa") double minGpa
+    );
+
+    @Query("""
+            SELECT s FROM Student s
+            WHERE LOWER(s.fullName) LIKE LOWER(CONCAT('%', :kw, '%'))
+               OR LOWER(s.email) LIKE LOWER(CONCAT('%', :kw, '%'))
+            ORDER BY s.fullName
+            """)
+    List<Student> searchByKeyword(
+            @Param("kw") String keyword
     );
 }

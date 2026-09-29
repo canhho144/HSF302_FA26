@@ -22,7 +22,6 @@ public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
 
-    // ===== TODO 6 =====
     @Override
     public long count() {
         return studentRepository.count();
@@ -33,7 +32,6 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findById(id);
     }
 
-    // ===== TODO 7 =====
     @Override
     public List<Student> findAllOrderByGpaDesc() {
         return studentRepository.findAll(
@@ -62,7 +60,6 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll(pageable);
     }
 
-    // ===== TODO 8 =====
     @Override
     public Optional<Student> findByStudentCode(String studentCode) {
         return studentRepository.findByStudentCode(studentCode);
@@ -78,7 +75,6 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.countByActiveTrue();
     }
 
-    // ===== TODO 9 =====
     @Override
     public List<Student> searchByName(String keyword) {
         if (keyword == null || keyword.isBlank()) {
@@ -104,7 +100,6 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByEmailIsNull();
     }
 
-    // ===== TODO 10 =====
     @Override
     public List<Student> findByGpaRange(double min, double max) {
         if (min > max) {
@@ -129,7 +124,6 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByDobAfter(date);
     }
 
-    // ===== TODO 11 =====
     @Override
     public List<Student> findByDepartment(String deptCode) {
         return studentRepository
@@ -146,7 +140,6 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findTop3ByOrderByGpaDesc();
     }
 
-    // ===== TODO 12 =====
     @Override
     public List<Student> findGoodStudents(
             String deptCode,
@@ -156,5 +149,14 @@ public class StudentServiceImpl implements StudentService {
                 deptCode,
                 minGpa
         );
+    }
+
+    @Override
+    public List<Student> searchByKeyword(String keyword) {
+        if (keyword == null || keyword.isBlank()) {
+            return List.of();
+        }
+
+        return studentRepository.searchByKeyword(keyword.trim());
     }
 }

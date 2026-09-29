@@ -1,5 +1,6 @@
 package com.hsf302.ch4.runner;
 
+import com.hsf302.ch4.pojo.Gender;
 import com.hsf302.ch4.pojo.Student;
 import com.hsf302.ch4.service.DepartmentService;
 import com.hsf302.ch4.service.StudentService;
@@ -9,6 +10,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -179,5 +181,72 @@ public class ExerciseRunner implements CommandLineRunner {
         );
     }
 
-    // ===== TODO 10 -> TODO 24 sẽ bổ sung sau =====
+    // ===== TODO 10 =====
+    private void todo10() {
+        title("TODO 10: Between / And / True / After");
+
+        printList(
+                "GPA in [3.0, 3.6] desc",
+                studentService.findByGpaRange(3.0, 3.6)
+        );
+
+        printList(
+                "MALE & active",
+                studentService.findActiveByGender(Gender.MALE)
+        );
+
+        printList(
+                "dob after 2005-01-01",
+                studentService.findBornAfter(
+                        LocalDate.of(2005, 1, 1)
+                )
+        );
+    }
+
+    // ===== TODO 11 =====
+    private void todo11() {
+        title("TODO 11: Nested property / Top / IsEmpty");
+
+        printList(
+                "Students of SE (order by name)",
+                studentService.findByDepartment("SE")
+        );
+
+        System.out.println(
+                "count students of AI -> "
+                        + studentService.countByDepartment("AI")
+        );
+
+        printList(
+                "Top 3 GPA",
+                studentService.findTop3ByGpa()
+        );
+
+        printList(
+                "Departments without students",
+                departmentService.findDepartmentsWithoutStudents()
+        );
+    }
+
+    private void todo12() {
+        title("TODO 12: JPQL + named parameter");
+
+        printList(
+                "SE, GPA >= 3.0",
+                studentService.findGoodStudents("SE", 3.0)
+        );
+    }
+    private void todo13() {
+        title("TODO 13: JPQL LIKE");
+
+        printList(
+                "keyword 'hoa'",
+                studentService.searchByKeyword("hoa")
+        );
+
+        printList(
+                "keyword 'gmail'",
+                studentService.searchByKeyword("gmail")
+        );
+    }
 }
