@@ -76,4 +76,5 @@ public interface StudentService {
             Double minGpa,
             Boolean active
     );
+    Student updateGpa(String studentCode, double newGpa);
 }
