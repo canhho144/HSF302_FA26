@@ -34,7 +34,10 @@ public interface StudentService {
 
     List<Student> findWithoutEmail();
 
-    List<Student> findByGpaRange(double min, double max);
+    List<Student> findByGpaRange(
+            double min,
+            double max
+    );
 
     List<Student> findActiveByGender(Gender gender);
 
@@ -54,4 +57,9 @@ public interface StudentService {
     List<Student> searchByKeyword(String keyword);
 
     List<Student> findAboveAverageGpa();
+
+    List<Student> findTopNInDepartment(
+            String deptCode,
+            int n
+    );
 }

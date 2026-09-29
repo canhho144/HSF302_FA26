@@ -6,9 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -43,7 +43,9 @@ public interface StudentRepository
 
     List<Student> findByDobAfter(LocalDate date);
 
-    List<Student> findByDepartment_CodeOrderByFullNameAsc(String code);
+    List<Student> findByDepartment_CodeOrderByFullNameAsc(
+            String code
+    );
 
     long countByDepartment_Code(String code);
 
@@ -79,4 +81,20 @@ public interface StudentRepository
             ORDER BY s.gpa DESC
             """)
     List<Student> findAboveAverageGpa();
+
+    @Query(
+            value = """
+                    SELECT TOP (:n) s.*
+                    FROM students s
+                    JOIN departments d
+                        ON s.department_id = d.id
+                    WHERE d.code = :code
+                    ORDER BY s.gpa DESC
+                    """,
+            nativeQuery = true
+    )
+    List<Student> findTopNByDepartmentNative(
+            @Param("code") String code,
+            @Param("n") int n
+    );
 }

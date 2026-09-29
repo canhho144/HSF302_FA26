@@ -61,7 +61,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Optional<Student> findByStudentCode(String studentCode) {
+    public Optional<Student> findByStudentCode(
+            String studentCode
+    ) {
         return studentRepository.findByStudentCode(studentCode);
     }
 
@@ -81,9 +83,10 @@ public class StudentServiceImpl implements StudentService {
             return List.of();
         }
 
-        return studentRepository.findByFullNameContainingIgnoreCase(
-                keyword.trim()
-        );
+        return studentRepository
+                .findByFullNameContainingIgnoreCase(
+                        keyword.trim()
+                );
     }
 
     @Override
@@ -111,36 +114,50 @@ public class StudentServiceImpl implements StudentService {
             );
         }
 
-        return studentRepository.findByGpaBetweenOrderByGpaDesc(
-                min,
-                max
-        );
+        return studentRepository
+                .findByGpaBetweenOrderByGpaDesc(
+                        min,
+                        max
+                );
     }
 
     @Override
-    public List<Student> findActiveByGender(Gender gender) {
-        return studentRepository.findByGenderAndActiveTrue(gender);
+    public List<Student> findActiveByGender(
+            Gender gender
+    ) {
+        return studentRepository
+                .findByGenderAndActiveTrue(gender);
     }
 
     @Override
-    public List<Student> findBornAfter(LocalDate date) {
+    public List<Student> findBornAfter(
+            LocalDate date
+    ) {
         return studentRepository.findByDobAfter(date);
     }
 
     @Override
-    public List<Student> findByDepartment(String deptCode) {
+    public List<Student> findByDepartment(
+            String deptCode
+    ) {
         return studentRepository
-                .findByDepartment_CodeOrderByFullNameAsc(deptCode);
+                .findByDepartment_CodeOrderByFullNameAsc(
+                        deptCode
+                );
     }
 
     @Override
-    public long countByDepartment(String deptCode) {
-        return studentRepository.countByDepartment_Code(deptCode);
+    public long countByDepartment(
+            String deptCode
+    ) {
+        return studentRepository
+                .countByDepartment_Code(deptCode);
     }
 
     @Override
     public List<Student> findTop3ByGpa() {
-        return studentRepository.findTop3ByOrderByGpaDesc();
+        return studentRepository
+                .findTop3ByOrderByGpaDesc();
     }
 
     @Override
@@ -148,23 +165,44 @@ public class StudentServiceImpl implements StudentService {
             String deptCode,
             double minGpa
     ) {
-        return studentRepository.findGoodStudentsInDepartment(
-                deptCode,
-                minGpa
-        );
+        return studentRepository
+                .findGoodStudentsInDepartment(
+                        deptCode,
+                        minGpa
+                );
     }
 
     @Override
-    public List<Student> searchByKeyword(String keyword) {
+    public List<Student> searchByKeyword(
+            String keyword
+    ) {
         if (keyword == null || keyword.isBlank()) {
             return List.of();
         }
 
-        return studentRepository.searchByKeyword(keyword.trim());
+        return studentRepository
+                .searchByKeyword(keyword.trim());
     }
 
     @Override
     public List<Student> findAboveAverageGpa() {
         return studentRepository.findAboveAverageGpa();
+    }
+
+    @Override
+    public List<Student> findTopNInDepartment(
+            String deptCode,
+            int n
+    ) {
+        if (n <= 0) {
+            throw new IllegalArgumentException(
+                    "n phải > 0"
+            );
+        }
+
+        return studentRepository.findTopNByDepartmentNative(
+                deptCode,
+                n
+        );
     }
 }
