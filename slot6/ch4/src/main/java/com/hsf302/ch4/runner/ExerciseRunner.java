@@ -249,4 +249,13 @@ public class ExerciseRunner implements CommandLineRunner {
                 studentService.searchByKeyword("gmail")
         );
     }
+
+    private void todo14() {
+        title("TODO 14: Statistics by department (DTO)");
+
+        printList(
+                "code | name | total | avgGpa",
+                departmentService.getStatistics()
+        );
+    }
 }
