@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.hsf302.ch4.dto.StudentSummary;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -204,5 +205,9 @@ public class StudentServiceImpl implements StudentService {
                 deptCode,
                 n
         );
+    }
+    @Override
+    public List<StudentSummary> getActiveSummaries() {
+        return studentRepository.findActiveSummaries();
     }
 }

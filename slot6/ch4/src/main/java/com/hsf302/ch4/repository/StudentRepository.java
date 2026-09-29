@@ -1,5 +1,6 @@
 package com.hsf302.ch4.repository;
 
+import com.hsf302.ch4.dto.StudentSummary;
 import com.hsf302.ch4.pojo.Gender;
 import com.hsf302.ch4.pojo.Student;
 import org.springframework.data.domain.Page;
@@ -97,4 +98,16 @@ public interface StudentRepository
             @Param("code") String code,
             @Param("n") int n
     );
+
+    @Query("""
+        SELECT s.studentCode AS studentCode,
+               s.fullName AS fullName,
+               s.gpa AS gpa,
+               d.name AS departmentName
+        FROM Student s
+        JOIN s.department d
+        WHERE s.active = true
+        ORDER BY s.fullName
+        """)
+    List<StudentSummary> findActiveSummaries();
 }

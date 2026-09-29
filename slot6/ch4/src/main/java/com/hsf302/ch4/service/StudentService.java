@@ -3,6 +3,7 @@ package com.hsf302.ch4.service;
 import com.hsf302.ch4.pojo.Gender;
 import com.hsf302.ch4.pojo.Student;
 import org.springframework.data.domain.Page;
+import com.hsf302.ch4.dto.StudentSummary;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -62,4 +63,5 @@ public interface StudentService {
             String deptCode,
             int n
     );
+    List<StudentSummary> getActiveSummaries();
 }
