@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import com.hsf302.ch4.pojo.Course;
 
 import java.util.Collection;
 
@@ -84,5 +85,24 @@ public class Exercise2Runner implements CommandLineRunner {
         }
     }
 
-    // todo6() ... todo25() viết ở các TODO bên dưới
+    private void todo6() {
+
+        title("TODO 6: count, findAll(Sort), findById");
+
+        System.out.println("Total courses: " + courseService.count());
+
+        printList(
+                "All courses order by code",
+                courseService.findAllOrderByCode()
+        );
+
+        for (long id : new long[]{2L, 99L}) {
+            System.out.println(
+                    "findById(" + id + "): "
+                            + courseService.findById(id)
+                            .map(Course::toString)
+                            .orElse("Not found")
+            );
+        }
+    }
 }
