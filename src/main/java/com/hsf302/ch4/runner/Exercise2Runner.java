@@ -154,4 +154,16 @@ public class Exercise2Runner implements CommandLineRunner {
         printList("(c) Active students of PRJ301",
                 enrollmentService.findActiveStudentsInCourse("PRJ301"));
     }
+    private void todo10() {
+        title("TODO 10: derived query from inverse side, Distinct");
+
+        printList("(a) Courses of SE002",
+                courseService.findCoursesOfStudent("SE002"));
+
+        printList("(b1) Courses of AI students - no Distinct",
+                courseService.findCoursesOfDepartment("AI", false));
+
+        printList("(b2) Courses of AI students - Distinct",
+                courseService.findCoursesOfDepartment("AI", true));
+    }
 }
