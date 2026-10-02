@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.hsf302.ch4.dto.StudentCreditDTO;
+import com.hsf302.ch4.dto.EnrollmentView;
 
 import java.util.Comparator;
 import java.util.List;
@@ -115,5 +116,10 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                 .orElseThrow(() ->
                         new IllegalArgumentException(
                                 "Student not found: " + studentCode));
+    }
+
+    @Override
+    public List<EnrollmentView> getEnrollmentsOfDepartment(String deptCode) {
+        return studentRepository.findEnrollmentsOfDepartment(deptCode);
     }
 }

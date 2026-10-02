@@ -13,7 +13,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.hsf302.ch4.dto.StudentCreditDTO;
-
+import com.hsf302.ch4.dto.EnrollmentView;
+import org.springframework.data.repository.query.Param;
 
 
 import java.time.LocalDate;
@@ -188,4 +189,11 @@ public interface StudentRepository
             "WHERE s.studentCode = :code")
     Optional<Student> findByStudentCodeWithCourses(
             @Param("code") String studentCode);
+
+    @Query("SELECT s.studentCode AS studentCode, s.fullName AS fullName, " +
+            "c.code AS courseCode, c.name AS courseName, c.credits AS credits " +
+            "FROM Student s JOIN s.department d JOIN s.courses c " +
+            "WHERE d.code = :deptCode " +
+            "ORDER BY s.studentCode, c.code")
+    List<EnrollmentView> findEnrollmentsOfDepartment(@Param("deptCode") String deptCode);
 }
