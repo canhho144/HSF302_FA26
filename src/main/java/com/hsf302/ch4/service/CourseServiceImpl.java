@@ -32,4 +32,19 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findById(id);
     }
 
+    @Override
+    public Optional<Course> findByCode(String code) {
+        return courseRepository.findByCode(code);
+    }
+
+    @Override
+    public List<Course> findBySemester(String semester) {
+        return courseRepository.findBySemesterOrderByCodeAsc(semester);
+    }
+
+    @Override
+    public long countBySemester(String semester) {
+        return courseRepository.countBySemester(semester);
+    }
+
 }
