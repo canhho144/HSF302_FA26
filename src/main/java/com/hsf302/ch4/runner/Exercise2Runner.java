@@ -283,4 +283,23 @@ public class Exercise2Runner implements CommandLineRunner {
         System.out.println("totalElements = " + page.getTotalElements()
                 + ", totalPages = " + page.getTotalPages());
     }
+
+    private void todo25() {
+        title("TODO 25 (Bonus): Specification search");
+
+        printList(
+                "search(null, SU26, null, null)",
+                enrollmentService.search(null, "SU26", null, null)
+        );
+
+        printList(
+                "search(HSF302, null, SE, 3.5)",
+                enrollmentService.search("HSF302", null, "SE", 3.5)
+        );
+
+        printList(
+                "search(null, FA26, AI, null)",
+                enrollmentService.search(null, "FA26", "AI", null)
+        );
+    }
 }
