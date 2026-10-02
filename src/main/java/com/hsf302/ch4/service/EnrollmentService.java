@@ -42,4 +42,6 @@ public interface EnrollmentService {
             String deptCode,
             Double minGpa
     );
+
+    void enroll(String studentCode, String courseCode);
 }

@@ -191,6 +191,22 @@ public class Exercise2Runner implements CommandLineRunner {
         printList("HSF302 & GPA >= 3.5",
                 enrollmentService.findGoodStudentsInCourse("HSF302", 3.5));
     }
+    private void todo13() {
+        title("TODO 13: course statistics (LEFT JOIN + GROUP BY + DTO)");
+        printCourseStats();
+    }
+
+    private void printCourseStats() {
+        courseService.getStatistics().forEach(d -> System.out.printf(
+                "   %-6s | %-40s | %d/%d (free %d) | avg GPA %s%n",
+                d.code(),
+                d.name(),
+                d.enrolled(),
+                d.capacity(),
+                d.remaining(),
+                d.avgGpa() == null ? "null" : String.format("%.3f", d.avgGpa())
+        ));
+    }
     private void todo14() {
         title("TODO 14: total credits per student (GROUP BY + HAVING)");
 
@@ -300,6 +316,35 @@ public class Exercise2Runner implements CommandLineRunner {
         printList(
                 "search(null, FA26, AI, null)",
                 enrollmentService.search(null, "FA26", "AI", null)
+        );
+    }
+
+    private void todo20() {
+        title("TODO 20: enroll with business rules");
+
+        attempt("enroll IA003 -> MKT101",
+                () -> enrollmentService.enroll("IA003", "MKT101"));
+
+        attempt("enroll SE001 -> PRJ301",
+                () -> enrollmentService.enroll("SE001", "PRJ301"));
+
+        attempt("enroll SE004 -> AIL303",
+                () -> enrollmentService.enroll("SE004", "AIL303"));
+
+        attempt("enroll SE003 -> HSF302",
+                () -> enrollmentService.enroll("SE003", "HSF302"));
+
+        attempt("enroll XX999 -> HSF302",
+                () -> enrollmentService.enroll("XX999", "HSF302"));
+
+        printList(
+                "Courses of IA003",
+                enrollmentService.getCoursesOfStudent("IA003")
+        );
+
+        System.out.println(
+                "Students of MKT101: "
+                        + enrollmentService.countStudentsInCourse("MKT101")
         );
     }
 }
