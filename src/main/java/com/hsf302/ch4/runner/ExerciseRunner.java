@@ -9,6 +9,7 @@ import com.hsf302.ch4.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.LazyInitializationException;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @Component
 @Order(2)
+@Profile("ex1")
 @RequiredArgsConstructor
 public class ExerciseRunner implements CommandLineRunner {
 
@@ -68,8 +70,6 @@ public class ExerciseRunner implements CommandLineRunner {
         todo23();
     }
 
-    // ===== helpers =====
-
     private void title(String t) {
         System.out.println("\n===== " + t + " =====");
     }
@@ -80,14 +80,10 @@ public class ExerciseRunner implements CommandLineRunner {
         System.out.println("   -> " + list.size() + " record(s)");
     }
 
-    // ===== TODO 6 =====
-
     private void todo6() {
-
         title("TODO 6: count / findById / existsById");
 
         System.out.println("Departments: " + departmentService.count());
-
         System.out.println("Students   : " + studentService.count());
 
         studentService.findById(1L).ifPresentOrElse(
@@ -103,10 +99,7 @@ public class ExerciseRunner implements CommandLineRunner {
                 + departmentService.existsById(4L));
     }
 
-    // ===== TODO 7 =====
-
     private void todo7() {
-
         title("TODO 7: Sort & Pageable");
 
         printList(
@@ -134,14 +127,10 @@ public class ExerciseRunner implements CommandLineRunner {
         );
     }
 
-    // ===== TODO 8 =====
-
     private void todo8() {
-
         title("TODO 8: findBy / existsBy / countBy");
 
         for (String code : List.of("AI002", "XX999")) {
-
             System.out.println(
                     "findByStudentCode(" + code + ") -> "
                             + studentService.findByStudentCode(code)
@@ -152,9 +141,7 @@ public class ExerciseRunner implements CommandLineRunner {
 
         System.out.println(
                 "isEmailExisted(binh.tt@fpt.edu.vn) -> "
-                        + studentService.isEmailExisted(
-                        "binh.tt@fpt.edu.vn"
-                )
+                        + studentService.isEmailExisted("binh.tt@fpt.edu.vn")
         );
 
         System.out.println(
@@ -162,10 +149,7 @@ public class ExerciseRunner implements CommandLineRunner {
         );
     }
 
-    // ===== TODO 9 =====
-
     private void todo9() {
-
         title("TODO 9: Containing / EndingWith / IsNull");
 
         printList(
@@ -184,7 +168,6 @@ public class ExerciseRunner implements CommandLineRunner {
         );
     }
 
-    // ===== TODO 10 =====
     private void todo10() {
         title("TODO 10: Between / And / True / After");
 
@@ -200,13 +183,10 @@ public class ExerciseRunner implements CommandLineRunner {
 
         printList(
                 "dob after 2005-01-01",
-                studentService.findBornAfter(
-                        LocalDate.of(2005, 1, 1)
-                )
+                studentService.findBornAfter(LocalDate.of(2005, 1, 1))
         );
     }
 
-    // ===== TODO 11 =====
     private void todo11() {
         title("TODO 11: Nested property / Top / IsEmpty");
 
@@ -239,6 +219,7 @@ public class ExerciseRunner implements CommandLineRunner {
                 studentService.findGoodStudents("SE", 3.0)
         );
     }
+
     private void todo13() {
         title("TODO 13: JPQL LIKE");
 
@@ -261,6 +242,7 @@ public class ExerciseRunner implements CommandLineRunner {
                 departmentService.getStatistics()
         );
     }
+
     private void todo15() {
         title("TODO 15: Subquery - GPA above average");
 
@@ -269,6 +251,7 @@ public class ExerciseRunner implements CommandLineRunner {
                 studentService.findAboveAverageGpa()
         );
     }
+
     private void todo16() {
         title("TODO 16: LazyInitializationException & JOIN FETCH");
 
@@ -298,6 +281,7 @@ public class ExerciseRunner implements CommandLineRunner {
         aiFull.getStudents()
                 .forEach(s -> System.out.println("     " + s));
     }
+
     private void todo17() {
         title("TODO 17: Native query - TOP N");
 
@@ -306,6 +290,7 @@ public class ExerciseRunner implements CommandLineRunner {
                 studentService.findTopNInDepartment("SE", 2)
         );
     }
+
     private void todo18() {
         title("TODO 18: Interface projection");
 
@@ -322,6 +307,7 @@ public class ExerciseRunner implements CommandLineRunner {
 
         System.out.println("   -> " + list.size() + " record(s)");
     }
+
     private void todo19() {
         title("TODO 19: @Query + Pageable");
 
@@ -344,6 +330,7 @@ public class ExerciseRunner implements CommandLineRunner {
             );
         }
     }
+
     private void todo24() {
         title("TODO 24 (Bonus): Specification");
 
@@ -367,6 +354,7 @@ public class ExerciseRunner implements CommandLineRunner {
                 )
         );
     }
+
     private void todo20() {
         title("TODO 20: Update GPA (dirty checking)");
 
@@ -386,6 +374,7 @@ public class ExerciseRunner implements CommandLineRunner {
                         .orElseThrow()
         );
     }
+
     private void todo21() {
         title("TODO 21: @Modifying UPDATE");
 
@@ -398,6 +387,7 @@ public class ExerciseRunner implements CommandLineRunner {
                         + studentService.countActive()
         );
     }
+
     private void todo22() {
         title("TODO 22: Transfer IA -> SE, then delete IA");
 
@@ -419,6 +409,7 @@ public class ExerciseRunner implements CommandLineRunner {
                 departmentService.findAll()
         );
     }
+
     private void todo23() {
         title("TODO 23: Derived delete");
 
