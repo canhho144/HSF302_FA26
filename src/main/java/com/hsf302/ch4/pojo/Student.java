@@ -52,6 +52,16 @@ public class Student {
     )
     private Set<Course> courses = new HashSet<>();
 
+    public void enroll(Course course) {
+        courses.add(course);
+        course.getStudents().add(this);
+    }
+
+    public void unenroll(Course course) {
+        courses.remove(course);
+        course.getStudents().remove(this);
+    }
+
     @Override
     public String toString() {
         return String.format("%s | %-15s | %-20s | %.1f | %s",
