@@ -44,4 +44,6 @@ public interface EnrollmentService {
     );
 
     void enroll(String studentCode, String courseCode);
+
+    void unenroll(String studentCode, String courseCode);
 }
