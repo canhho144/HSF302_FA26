@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "students")
@@ -25,7 +27,7 @@ public class Student {
     private String fullName;
 
     @Column(unique = true, length = 100)
-    private String email;                         // cho phép null
+    private String email;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
@@ -37,15 +39,22 @@ public class Student {
 
     private boolean active;
 
-    // Owning side: bảng students có cột department_id (FK → departments.id)
+    // Owning side: bảng students có cột department_id
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private Set<Course> courses = new HashSet<>();
 
     @Override
     public String toString() {
         return String.format("%s | %-15s | %-20s | %.1f | %s",
                 studentCode, fullName, email, gpa, active ? "active" : "inactive");
-        // KHÔNG in department → tránh LazyInitializationException
     }
 }
