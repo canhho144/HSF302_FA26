@@ -178,4 +178,9 @@ public interface StudentRepository
             "ORDER BY SUM(c.credits) DESC, s.fullName")
     List<StudentCreditDTO> getCreditSummary(
             @Param("minCredits") long minCredits);
+
+    @Query("SELECT s FROM Student s " +
+            "WHERE SIZE(s.courses) > :n " +
+            "ORDER BY s.fullName")
+    List<Student> findStudentsWithMoreThanNCourses(@Param("n") int n);
 }
