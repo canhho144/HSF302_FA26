@@ -54,6 +54,13 @@ public interface StudentRepository
 
     List<Student> findTop3ByOrderByGpaDesc();
 
+    // ===== Exercise 2 =====
+    List<Student> findByCourses_CodeOrderByFullNameAsc(String courseCode);
+
+    long countByCourses_Code(String courseCode);
+
+    List<Student> findByCourses_CodeAndActiveTrueOrderByFullNameAsc(String courseCode);
+
     @Query("""
             SELECT s FROM Student s
             WHERE s.department.code = :code

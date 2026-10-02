@@ -142,4 +142,16 @@ public class Exercise2Runner implements CommandLineRunner {
                         + courseService.countBySemester("FA26")
         );
     }
+    private void todo9() {
+        title("TODO 9: derived query through collection courses");
+
+        printList("(a) Students of PRJ301",
+                enrollmentService.findStudentsInCourse("PRJ301"));
+
+        System.out.println("(b) Students of HSF302: "
+                + enrollmentService.countStudentsInCourse("HSF302"));
+
+        printList("(c) Active students of PRJ301",
+                enrollmentService.findActiveStudentsInCourse("PRJ301"));
+    }
 }
