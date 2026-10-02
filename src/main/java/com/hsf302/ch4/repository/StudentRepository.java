@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -160,4 +161,10 @@ public interface StudentRepository
     List<Student> findByCoursesIsEmptyOrderByFullNameAsc();
 
     boolean existsByStudentCodeAndCourses_Code(String studentCode, String courseCode);
+
+    @Query("SELECT s FROM Student s JOIN s.courses c " +
+            "WHERE c.code = :code AND s.gpa >= :minGpa ORDER BY s.gpa DESC")
+    List<Student> findGoodStudentsInCourse(
+            @Param("code") String courseCode,
+            @Param("minGpa") double minGpa);
 }
