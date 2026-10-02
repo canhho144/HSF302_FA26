@@ -156,4 +156,8 @@ public interface StudentRepository
             @Param("to") Department to
     );
     long deleteByActiveFalse();
+    // ===== Exercise 2 =====
+    List<Student> findByCoursesIsEmptyOrderByFullNameAsc();
+
+    boolean existsByStudentCodeAndCourses_Code(String studentCode, String courseCode);
 }

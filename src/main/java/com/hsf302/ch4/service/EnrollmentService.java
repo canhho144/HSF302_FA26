@@ -17,4 +17,8 @@ public interface EnrollmentService {
 
     List<Student> findActiveStudentsInCourse(String courseCode);
 
+    List<Student> findStudentsWithoutCourses();
+
+    boolean isEnrolled(String studentCode, String courseCode);
+
 }
