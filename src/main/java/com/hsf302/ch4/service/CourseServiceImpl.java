@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.hsf302.ch4.dto.CourseStatDTO;
 import com.hsf302.ch4.dto.CourseEnrollmentCount;
+import com.hsf302.ch4.pojo.Student;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import java.util.List;
 import java.util.Optional;
@@ -91,5 +96,34 @@ public class CourseServiceImpl implements CourseService {
 
         return courseRepository.findTopEnrolledNative(n);
     }
+    @Override
+    @Transactional
+    public void deleteCourseDirectly(String code) {
+        Course c = getCourse(code);
+
+        courseRepository.delete(c);
+        courseRepository.flush();
+    }
+
+    @Override
+    @Transactional
+    public int deleteCourse(String code) {
+        Course c = getCourse(code);
+
+        Set<Student> students = new HashSet<>(c.getStudents());
+
+        students.forEach(s -> s.unenroll(c));
+
+        courseRepository.delete(c);
+
+        return students.size();
+    }
+    private Course getCourse(String code) {
+        return courseRepository.findByCode(code)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Course not found: " + code));
+    }
+
 
 }

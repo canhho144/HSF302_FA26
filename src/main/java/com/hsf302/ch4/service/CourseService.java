@@ -34,4 +34,8 @@ public interface CourseService {
     Course getWithStudents(String code);
 
     List<CourseEnrollmentCount> findTopEnrolled(int n);
+
+    void deleteCourseDirectly(String code);
+
+    int deleteCourse(String code);
 }

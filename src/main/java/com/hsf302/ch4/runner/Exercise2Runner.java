@@ -413,4 +413,31 @@ public class Exercise2Runner implements CommandLineRunner {
                 enrollmentService.getCoursesOfStudent("SE001")
         );
     }
+
+    private void todo23() {
+        title("TODO 23: delete course");
+
+        try {
+            courseService.deleteCourseDirectly("IAA202");
+            System.out.println("(a) Deleted ?!");
+        } catch (DataIntegrityViolationException e) {
+            System.out.println("(a) Caught: " + e.getClass().getSimpleName());
+            System.out.println("    " + e.getMostSpecificCause().getMessage());
+        }
+
+        System.out.println(
+                "(b) Unlinked students: "
+                        + courseService.deleteCourse("IAA202")
+        );
+
+        printList(
+                "Remaining courses",
+                courseService.findAllOrderByCode()
+        );
+
+        printList(
+                "Courses of IA002",
+                enrollmentService.getCoursesOfStudent("IA002")
+        );
+    }
 }
