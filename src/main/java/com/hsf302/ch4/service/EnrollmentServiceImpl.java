@@ -7,6 +7,7 @@ import com.hsf302.ch4.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.hsf302.ch4.dto.StudentCreditDTO;
 
 import java.util.Comparator;
 import java.util.List;
@@ -88,5 +89,14 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         }
 
         return studentRepository.findGoodStudentsInCourse(courseCode, minGpa);
+    }
+
+    @Override
+    public List<StudentCreditDTO> getCreditSummary(int minCredits) {
+        if (minCredits < 0) {
+            throw new IllegalArgumentException("minCredits must be >= 0");
+        }
+
+        return studentRepository.getCreditSummary(minCredits);
     }
 }

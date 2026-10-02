@@ -12,6 +12,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import com.hsf302.ch4.dto.StudentCreditDTO;
+
 
 
 import java.time.LocalDate;
@@ -167,4 +169,13 @@ public interface StudentRepository
     List<Student> findGoodStudentsInCourse(
             @Param("code") String courseCode,
             @Param("minGpa") double minGpa);
+
+    @Query("SELECT new com.hsf302.ch4.dto.StudentCreditDTO(" +
+            "s.studentCode, s.fullName, COUNT(c), SUM(c.credits)) " +
+            "FROM Student s JOIN s.courses c " +
+            "GROUP BY s.studentCode, s.fullName " +
+            "HAVING SUM(c.credits) >= :minCredits " +
+            "ORDER BY SUM(c.credits) DESC, s.fullName")
+    List<StudentCreditDTO> getCreditSummary(
+            @Param("minCredits") long minCredits);
 }
