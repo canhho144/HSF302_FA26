@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import com.hsf302.ch4.pojo.Course;
@@ -438,6 +439,22 @@ public class Exercise2Runner implements CommandLineRunner {
         printList(
                 "Courses of IA002",
                 enrollmentService.getCoursesOfStudent("IA002")
+        );
+    }
+
+    private void todo24() {
+        title("TODO 24: bulk delete enrollments of inactive students");
+
+        System.out.println(
+                "Deleted rows: "
+                        + enrollmentService.removeEnrollmentsOfInactiveStudents()
+        );
+
+        printCourseStats();
+
+        printList(
+                "Students without courses",
+                enrollmentService.findStudentsWithoutCourses()
         );
     }
 }

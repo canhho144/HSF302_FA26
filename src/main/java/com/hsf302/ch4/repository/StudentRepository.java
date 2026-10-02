@@ -203,4 +203,14 @@ public interface StudentRepository
             @Param("code") String courseCode,
             Pageable pageable
     );
+
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
+    @Query(
+            value = "DELETE FROM student_courses " +
+                    "WHERE student_id IN " +
+                    "(SELECT id FROM students WHERE active = 0)",
+            nativeQuery = true
+    )
+    int deleteEnrollmentsOfInactiveStudents();
+
 }
