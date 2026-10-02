@@ -244,4 +244,15 @@ public class Exercise2Runner implements CommandLineRunner {
                 .sorted(Comparator.comparing(Student::getFullName))
                 .forEach(st -> System.out.println("    " + st));
     }
+
+    private void todo17() {
+        title("TODO 17: native SQL on join table - top 3 enrolled courses");
+
+        courseService.findTopEnrolled(3).forEach(r -> System.out.printf(
+                "   %s | %-35s | %d student(s)%n",
+                r.getCode(),
+                r.getName(),
+                r.getEnrolled()
+        ));
+    }
 }

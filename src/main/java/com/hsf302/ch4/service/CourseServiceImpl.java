@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.hsf302.ch4.dto.CourseStatDTO;
+import com.hsf302.ch4.dto.CourseEnrollmentCount;
 
 import java.util.List;
 import java.util.Optional;
@@ -81,6 +82,14 @@ public class CourseServiceImpl implements CourseService {
                 .orElseThrow(() ->
                         new IllegalArgumentException(
                                 "Course not found: " + code));
+    }
+    @Override
+    public List<CourseEnrollmentCount> findTopEnrolled(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("n must be > 0");
+        }
+
+        return courseRepository.findTopEnrolledNative(n);
     }
 
 }
