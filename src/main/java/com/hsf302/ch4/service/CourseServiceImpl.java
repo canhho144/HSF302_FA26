@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.hsf302.ch4.dto.CourseStatDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -62,6 +63,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> findCoursesWithoutStudents() {
         return courseRepository.findByStudentsIsEmpty();
+    }
+
+    @Override
+    public List<CourseStatDTO> getStatistics() {
+        return courseRepository.getCourseStats();
     }
 
 }
