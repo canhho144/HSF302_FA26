@@ -75,4 +75,12 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findFullCourses();
     }
 
+    @Override
+    public Course getWithStudents(String code) {
+        return courseRepository.findWithStudentsByCode(code)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Course not found: " + code));
+    }
+
 }
