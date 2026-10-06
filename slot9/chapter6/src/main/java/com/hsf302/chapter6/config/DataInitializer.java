@@ -27,10 +27,10 @@ public class DataInitializer implements CommandLineRunner {
             return;
         }
         studentRepository.saveAll(List.of(
-                new Student("Nguyễn Văn An",  "an@fpt.edu.vn",    20, "CNTT", 3.5),
-                new Student("Trần Thị Bình",  "binh@fpt.edu.vn",  21, "KTPM", 3.2),
-                new Student("Lê Minh Cường",  "cuong@fpt.edu.vn", 19, "ATTT", 3.8),
-                new Student("Phạm Thị Dung",  "dung@fpt.edu.vn",  22, "HTTT", 2.9)
+                new Student("Nguyễn Văn An", "an@fpt.edu.vn", 20, "CNTT", 3.5),
+                new Student("Trần Thị Bình", "binh@fpt.edu.vn", 21, "KTPM", 3.2),
+                new Student("Lê Minh Cường", "cuong@fpt.edu.vn", 19, "ATTT", 3.8),
+                new Student("Phạm Thị Dung", "dung@fpt.edu.vn", 22, "HTTT", 2.9)
         ));
         log.info("Đã seed {} sinh viên", studentRepository.count());
     }
