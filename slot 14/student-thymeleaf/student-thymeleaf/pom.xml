@@ -12,7 +12,7 @@
 	<artifactId>student-thymeleaf</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>student-thymeleaf</name>
-	<description>Demo project for Spring Boot Thymeleaf</description>
+	<description>Student Thymeleaf Project</description>
 
 	<properties>
 		<java.version>21</java.version>
@@ -25,22 +25,22 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<!-- Spring MVC Web -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
 		<!-- Thymeleaf -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
-		<!-- Validation (Hibernate Validator) -->
+		<!-- Validation -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<!-- Sửa spring-boot-starter-webmvc thành web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<!-- Thymeleaf Layout Dialect -->
@@ -57,14 +57,14 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- SQL Server JDBC Driver -->
+		<!-- MSSQL Driver -->
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- Test Starter -->
+		<!-- Gộp các dependency test riêng lẻ thành starter-test chuẩn -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
