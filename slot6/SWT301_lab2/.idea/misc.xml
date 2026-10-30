@@ -5,6 +5,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+<<<<<<<< HEAD:slot6/SWT301_lab2/.idea/misc.xml
+========
+        <option value="$PROJECT_DIR$/slot15/demo/pom.xml" />
+>>>>>>>> 178484abf0527766f68284029d3afb5f69bf4587:.idea/misc.xml
       </list>
     </option>
   </component>

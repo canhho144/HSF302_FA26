@@ -1,0 +1,7 @@
+com\hsf302\student\StudentThymeleafApplication.class
+com\hsf302\student\repository\StudentRepository.class
+com\hsf302\student\service\StudentService.class
+com\hsf302\student\controller\HomeController.class
+com\hsf302\student\entity\Student.class
+com\hsf302\student\config\DataInitializer.class
+com\hsf302\student\controller\StudentController.class
