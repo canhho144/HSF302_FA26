@@ -11,7 +11,9 @@
       <change beforePath="$PROJECT_DIR$/../../slot 14/student-thymeleaf/.idea/misc.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../slot 14/student-thymeleaf/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../slot 14/student-thymeleaf/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../slot 14/student-thymeleaf/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/slot15/demo/src/main/java/com/fu/ch08/common/AlertUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/slot15/demo/src/main/java/com/fu/ch08/common/AlertUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slot15/demo/src/main/java/com/fu/ch08/b4/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/slot15/demo/src/main/java/com/fu/ch08/b4/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slot15/demo/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/slot15/demo/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slot15/demo/src/main/resources/fu/se20b01/demo/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/slot15/demo/src/main/resources/fu/se20b01/demo/login-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

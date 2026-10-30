@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fu.se20b01.demo.LoginController">
+<HBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fu.ch08.b4.LoginController">
     <children>
         <!-- Cột trái: Banner / Branding -->
         <VBox alignment="CENTER" prefHeight="500.0" prefWidth="350.0" spacing="15.0" style="-fx-background-color: #3F51B5;">
