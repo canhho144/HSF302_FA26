@@ -5,5 +5,6 @@ module fu.se20b01.demo {
 
     opens fu.se20b01.demo to javafx.fxml;
 
+    exports com.fu.ch08.common;
     exports fu.se20b01.b1;
 }
