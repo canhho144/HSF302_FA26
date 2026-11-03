@@ -4,6 +4,9 @@ import com.example.data.exception.StudentNotFoundException;
 import com.example.data.exception.ValidationException;
 import com.example.data.pojo.Student;
 import com.example.data.repository.StudentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,6 +92,7 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByEmailIgnoreCase(keyword.trim(), keyword.trim());
     }
 
+
     private void normalize(Student s) {
         // TODO 3.9
         if (s != null) {
@@ -100,7 +104,10 @@ public class StudentServiceImpl implements StudentService {
             }
         }
     }
-
+    @Override
+    public Page<Student> findPage(int page, int size) {
+        return studentRepository.findAll(PageRequest.of(page, size, Sort.by("id")));
+    }
     private void validate(Student s) {
         // TODO 3.10
         if (s == null) {
