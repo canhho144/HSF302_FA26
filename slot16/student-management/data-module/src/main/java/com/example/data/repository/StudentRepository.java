@@ -29,7 +29,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("SELECT s FROM Student s WHERE LOWER(s.name) LIKE LOWER(CONCAT('%', :kw, '%')) OR LOWER(s.email) LIKE LOWER(CONCAT('%', :kw, '%'))")
     List<Student> searchByKeyword(@Param("kw") String kw);
 
-    Optional<Object> findByEmailIgnoreCase(String mail);
+    Optional<Object> findByEmailIgnoreCase(String mail, String trim);
 
     List<Student> findAllByOrderByIdAsc();
 
@@ -38,4 +38,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     boolean existsByEmailIgnoreCaseAndIdNot(String mail, Long id);
 
     List<Student> search(String binh);
+
+
 }

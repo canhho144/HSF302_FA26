@@ -48,8 +48,8 @@ class StudentRepositoryTest {
 
     @Test
     void findByEmailIgnoreCase_works() {
-        assertTrue(studentRepository.findByEmailIgnoreCase("BINH@GMAIL.COM").isPresent());
-        assertTrue(studentRepository.findByEmailIgnoreCase("none@x.com").isEmpty());
+        assertTrue(studentRepository.findByEmailIgnoreCase("BINH@GMAIL.COM", keyword.trim()).isPresent());
+        assertTrue(studentRepository.findByEmailIgnoreCase("none@x.com", keyword.trim()).isEmpty());
     }
 
     @Test
