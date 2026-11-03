@@ -135,7 +135,7 @@ public class StudentController {
     public void handleSearch() {
         executeSafely(() -> {
             String keyword = searchField.getText();
-            List<Student> results = studentService.search(keyword);
+            List<Student> results = (List<Student>) studentService.search(keyword);
             tableView.getItems().setAll(results);
             statusLabel.setText("Found " + results.size() + " student(s)");
         });
@@ -156,6 +156,9 @@ public class StudentController {
         } catch (Exception e) {
             showError(e);
         }
+    }
+
+    private void showError(Exception e) {
     }
 
     private void fillForm(Student s) {
